@@ -1,0 +1,59 @@
+// Get all the container elements
+var containers = document.querySelectorAll('#container');
+
+// Initialize the current container index
+var currentContainerIndex = 0;
+
+// Hide all containers except the first one
+for (var i = 1; i < containers.length; i++) {
+  containers[i].style.display = 'none';
+}
+
+// Function to show the next container after a delay
+function showNextContainer() {
+  // Move to the next container
+  if (currentContainerIndex < containers.length - 1) {
+    containers[currentContainerIndex].style.display = 'none';
+    currentContainerIndex++;
+    containers[currentContainerIndex].style.display = 'block';
+  }
+}
+
+// Function to replace the card with the reaction element
+function replaceCardWithReaction(reactionElement) {
+  // Hide the current container
+  containers[currentContainerIndex].style.display = 'none';
+
+  // Append the reaction element to the current container
+  containers[currentContainerIndex].appendChild(reactionElement);
+
+  // Delay showing the next container and removing the reaction element
+  setTimeout(function () {
+    // Remove the reaction element from the current container
+    containers[currentContainerIndex].removeChild(reactionElement);
+
+    // Show the next container
+    showNextContainer();
+  }, 2000);
+}
+
+// Get the buttons inside each container
+var buyButtons = document.querySelectorAll('.product-action button:nth-child(1)');
+var passButtons = document.querySelectorAll('.product-action button:nth-child(2)');
+
+// Get the reaction elements
+var reactionYes = document.getElementById('reaction-yes');
+var reactionNo = document.getElementById('reaction-no');
+
+// Add click event listeners to the buttons
+for (var i = 0; i < buyButtons.length; i++) {
+  buyButtons[i].addEventListener('click', function() {
+    // Show the "Good buy" reaction and replace the card
+    replaceCardWithReaction(reactionYes.cloneNode(true));
+  });
+
+  passButtons[i].addEventListener('click', function() {
+    // Show the "Next time" reaction and replace the card
+    replaceCardWithReaction(reactionNo.cloneNode(true));
+  });
+}
