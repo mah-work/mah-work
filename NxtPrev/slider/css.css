@@ -82,3 +82,276 @@
   font-size: 24px;
   background: #eaeaea;
 }
+
+
+// third
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+#header {
+  display: flex;
+  justify-content: space-between;
+  background: green;
+  position: sticky;
+  top: 0;
+  height: 50px;
+}
+
+.enter {}
+
+.enter ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.enter ul li {
+  display: inline;
+  padding: 0;
+  margin: 0;
+}
+
+#holder {
+  position: relative;
+  height: 100vh;
+  overflow: auto;
+  scroll-snap-type: y mandatory;
+}
+
+.intro-section {
+  position: relative;
+  height: 100vh;
+  scroll-snap-align: center;
+  width: 100%;
+  display: flex;
+}
+
+.contact-section {
+  position: relative;
+  height: 100vh;
+  scroll-snap-align: center;
+  width: 100%;
+  display: flex;
+}
+
+#products-container {
+  position: relative;
+  height: 100vh;
+  scroll-snap-align: center;
+  width: 100%;
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.product-desc {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  font-size: 18px;
+  background: coral;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.product-card {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  background: lightblue;
+}
+
+.product-img {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.product-img img {
+  height: auto;
+  width: 100%;
+}
+
+
+/* image section slider */
+
+.pen {
+  max-width: 635px;
+  width: 100%;
+  margin: 50px auto 0;
+  opacity: 0;
+  position: relative;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+  -webkit-animation: 1s appear 1 forwards;
+  -moz-animation: 1s appear 1 forwards;
+  -o-animation: 1s appear 1 forwards;
+  animation: 1s appear 1 forwards;
+}
+
+.stage {
+  max-width: 635px;
+  width: 100%;
+  height: 400px;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+}
+
+.element {
+  background: green;
+  width: 202px;
+  -webkit-transform-origin: 50% 50%;
+  height: inherit;
+  margin: 0 7px 0 0;
+  display: inline-block;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+.element.active {
+  width: 282px;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+}
+
+.element.inactive {
+  width: 162px;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+  opacity: 0.4;
+}
+
+.element.franklin {
+  background: url('http://www.eduardmayer.de/codepen-css-resources/images/gta/franklin.jpeg') 45% 0 no-repeat;
+  background-size: cover;
+}
+
+.element.michael {
+  background: url('http://www.eduardmayer.de/codepen-css-resources/images/gta/michael.jpeg') 45% 0 no-repeat;
+  background-size: cover;
+}
+
+.element.trevor {
+  background: url('http://www.eduardmayer.de/codepen-css-resources/images/gta/trevor.jpeg') 45% 0 no-repeat;
+  background-size: cover;
+}
+
+.element:last-of-type {
+  margin: 0;
+}
+
+@media all and (min-width: 900px) {
+  .pen {
+    max-width: 890px;
+  }
+
+  .element {
+    width: 286px;
+  }
+
+  .element.inactive {
+    width: 246px;
+  }
+
+  .element.active {
+    width: 366px;
+  }
+
+  .stage {
+    max-width: 890px;
+    height: 600px;
+  }
+}
+
+@media all and (max-width: 660px) {
+  .pen {
+    max-width: 335px;
+  }
+
+  .element {
+    width: 101px;
+  }
+
+  .element.inactive {
+    width: 61px;
+  }
+
+  .element.active {
+    width: 181px;
+  }
+
+  .stage {
+    max-width: 335px;
+  }
+}
+
+@-webkit-keyframes appear {
+  15% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes appear {
+  15% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes appear {
+  15% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes appear {
+  15% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
