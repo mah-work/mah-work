@@ -19,3 +19,9 @@ code {
 .forEach {
     color: red;
 }
+.collection-item.code{
+  background: #F9F9F9;
+  padding: 20px;
+  width: fit-content;
+  border-radius: 5px;
+}
