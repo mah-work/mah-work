@@ -1,5 +1,4 @@
 /* Color function */ 
-document.addEventListener('DOMContentLoaded', function() {
     const codeBlock = document.getElementById('code-block');
     const keywords = ['const', 'querySelector', 'forEach'];
 
@@ -18,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return match;
         }
     });
-});
 
 let originalCollectionVisibility = [];
 let originalTitleVisibility = [];
