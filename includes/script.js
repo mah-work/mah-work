@@ -118,7 +118,10 @@ function searchOnEnter(event) {
 
 // Wrap the function calls inside DOMContentLoaded event handler
 document.addEventListener('DOMContentLoaded', function() {
-    // Add event listeners for buttons
+    // Add event listener for buttons
     document.querySelector('button[onclick="search()"]').addEventListener('click', search);
     document.querySelector('button[onclick="resetSearch()"]').addEventListener('click', resetSearch);
-}); 
+
+    // Add event listener for the Enter key press on the search input
+    document.getElementById('site-search').addEventListener('keydown', searchOnEnter);
+});
