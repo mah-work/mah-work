@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function assignUniqueClasses() {
   const collectionItems = document.querySelectorAll('.collection-item');
 
-  collectionItems.forEach(function(item, index) {
+  collectionItems.forEach(function (item, index) {
     item.classList.add('collection-item-' + index);
 
     const title = item.querySelector('.title');
@@ -50,23 +50,34 @@ function assignUniqueClasses() {
 // Function to handle filtering based on user input
 function filterItems() {
   const filterInput = document.getElementById('filter-input').value.toLowerCase();
-  const collectionItems = document.querySelectorAll('.collection-item');
+  const collectionItems = Array.from(document.querySelectorAll('.collection-item'));
 
-  collectionItems.forEach(function(item) {
+  if (filterInput === '') {
+    // If input field is empty, reset background color and show all collection-items
+    collectionItems.forEach(function (item) {
+      item.style.display = 'block';
+      item.style.backgroundColor = 'white';
+    });
+    return;
+  }
+
+  collectionItems.forEach(function (item) {
     const itemIndex = item.classList[1].split('-')[1]; // Get the index of the collection-item
 
     const title = document.querySelector('.title-' + itemIndex);
     const code = document.querySelector('.code-' + itemIndex);
     const desc = document.querySelector('.desc-' + itemIndex);
 
-    const shouldShowItem =
-      item.textContent.toLowerCase().includes(filterInput) ||
-      (title && title.textContent.toLowerCase().includes(filterInput)) ||
-      (code && code.textContent.toLowerCase().includes(filterInput)) ||
-      (desc && desc.textContent.toLowerCase().includes(filterInput));
+    const titleMatch = title && title.textContent.toLowerCase().includes(filterInput);
+    const codeMatch = code && code.textContent.toLowerCase().includes(filterInput);
+    const descMatch = desc && desc.textContent.toLowerCase().includes(filterInput);
+
+    const shouldShowItem = titleMatch || codeMatch || descMatch;
 
     if (shouldShowItem) {
       item.style.display = 'block';
+      item.style.backgroundColor = 'lightgreen'; // Change background color to light green
+
       if (title) {
         title.style.display = 'block';
       }
@@ -80,6 +91,7 @@ function filterItems() {
       }
     } else {
       item.style.display = 'none';
+      item.style.backgroundColor = 'white'; // Reset background color to white
 
       if (title) {
         title.style.display = 'none';
@@ -96,12 +108,11 @@ function filterItems() {
   });
 }
 
-// Assign unique classes when the page loads
-assignUniqueClasses();
-
 // Event listener for the DOMContentLoaded event
 document.addEventListener('DOMContentLoaded', function () {
+  // Assign unique classes when the page loads
+  assignUniqueClasses();
+
   // Event listener for the filter input
   document.getElementById('filter-input').addEventListener('input', filterItems);
 });
-
