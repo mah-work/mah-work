@@ -5,10 +5,11 @@
 </head>
 <body>
     <header id="header">
-        <div class="search-box">
-            <input type="search" id="site-search" name="q" placeholder="Search...">
-            <button onclick="search()">Find</button>
-        </div>
+    <div class="search-box">
+        <input type="search" id="site-search" name="q" placeholder="Search..." onkeydown="searchOnEnter(event)">
+        <button onclick="search()">Find</button>
+        <button onclick="resetSearch()">Reset</button>
+    </div>
     </header>
     <section id="main">
         <div class="collection-item">
