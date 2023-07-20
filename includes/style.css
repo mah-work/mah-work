@@ -8,3 +8,14 @@ body{
 code {
     white-space: pre;
 }
+.const {
+    color: blue;
+}
+
+.querySelector {
+    color: green;
+}
+
+.forEach {
+    color: red;
+}
