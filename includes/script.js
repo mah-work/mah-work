@@ -23,18 +23,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
 /* Search function */
 
-let originalVisibility = []; // Array to store the original visibility of collection items
+const collectionItems = document.querySelectorAll('.collection-item');
+
+// Array to store the original visibility of collection items, titles, descs, and codes
+let originalVisibility = [];
+let originalTitleVisibility = [];
+let originalDescVisibility = [];
+let originalCodeVisibility = [];
+
+// Function to store the original visibility of collection items, titles, descs, and codes
+function storeOriginalVisibility() {
+    collectionItems.forEach(item => originalVisibility.push(item.style.display));
+
+    const titles = document.querySelectorAll('.collection-item.title');
+    titles.forEach(title => originalTitleVisibility.push(title.style.display));
+
+    const descs = document.querySelectorAll('.collection-item.desc');
+    descs.forEach(desc => originalDescVisibility.push(desc.style.display));
+
+    const codes = document.querySelectorAll('.collection-item.code');
+    codes.forEach(code => originalCodeVisibility.push(code.style.display));
+}
 
 // Functions are defined outside the DOMContentLoaded event handler
 function search() {
     const searchInput = document.getElementById('site-search');
     const searchTerm = searchInput.value.toLowerCase();
 
-    const collectionItems = document.querySelectorAll('.collection-item');
-
     if (originalVisibility.length === 0) {
-        // Store the original visibility if it hasn't been stored yet
-        originalVisibility = Array.from(collectionItems).map(item => item.style.display);
+        storeOriginalVisibility(); // Store the original visibility if it hasn't been stored yet
     }
 
     collectionItems.forEach(function(item, index) {
@@ -42,23 +59,19 @@ function search() {
         const desc = item.querySelector('.desc');
         const code = item.querySelector('.code');
 
-        if (
-            (title && title.textContent.toLowerCase().includes(searchTerm)) ||
-            (desc && desc.textContent.toLowerCase().includes(searchTerm)) ||
-            (code && code.textContent.toLowerCase().includes(searchTerm))
-        ) {
-            item.style.display = originalVisibility[index]; // Show the matching item
-        } else {
-            item.style.display = 'none'; // Hide non-matching items
-        }
+        // Check if the collection item or its corresponding title, desc, or code contains the search term
+        const isMatching = item.textContent.toLowerCase().includes(searchTerm) ||
+                           (title && title.textContent.toLowerCase().includes(searchTerm)) ||
+                           (desc && desc.textContent.toLowerCase().includes(searchTerm)) ||
+                           (code && code.textContent.toLowerCase().includes(searchTerm));
+
+        item.style.display = isMatching ? originalVisibility[index] : 'none'; // Show or hide the collection item accordingly
     });
 }
 
 function resetSearch() {
-    const collectionItems = document.querySelectorAll('.collection-item');
-
     collectionItems.forEach(function(item, index) {
-        item.style.display = originalVisibility[index]; // Restore the original visibility
+        item.style.display = originalVisibility[index]; // Restore the original visibility of collection items
     });
 
     originalVisibility = []; // Reset the originalVisibility array
