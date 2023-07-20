@@ -96,9 +96,12 @@ function filterItems() {
   });
 }
 
-// Event listener for the filter input
-document.getElementById('filter-input').addEventListener('input', filterItems);
-
 // Assign unique classes when the page loads
 assignUniqueClasses();
+
+// Event listener for the DOMContentLoaded event
+document.addEventListener('DOMContentLoaded', function () {
+  // Event listener for the filter input
+  document.getElementById('filter-input').addEventListener('input', filterItems);
+});
 
