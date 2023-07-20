@@ -32,6 +32,25 @@ facetNames.forEach(function(element) {
                 Description
             </div>
         </div>
+        <div class="collection-item">
+            <div class="collection-item title">
+                Insert before
+            </div>
+            <div class="collection-item code">
+                <code id="code-block">
+const parentWo = document.querySelector('.woocommerce-products-header');
+const noticeWrapperWo = document.querySelector('.button-pushbar');
+const orderingWo = document.querySelector('#category-page-popular');
+
+if (window.innerWidth <= 1024) {
+    parentWo.insertBefore(orderingWo, noticeWrapperWo);
+}
+                </code>
+            </div>
+            <div class="collection-item desc">
+                Insert before an Item
+            </div>
+        </div>
     </section>
     <footer id="footer">
         Footer | Updated at 
