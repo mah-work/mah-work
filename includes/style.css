@@ -4,6 +4,7 @@ body{
 }
 #main{
   position: relative;
+  padding: 10px 20px;
 }
 code {
     white-space: pre;
