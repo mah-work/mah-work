@@ -23,36 +23,77 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-function search() {
-  // Get the search term entered by the user
-  const searchTerm = document.getElementById("site-search").value.toLowerCase();
+/* Color function */ 
+document.addEventListener('DOMContentLoaded', function() {
+    const codeBlocks = document.querySelectorAll('#code-block');
 
-  // Get all the collection items
-  const collectionItems = document.querySelectorAll(".collection-item");
+    codeBlocks.forEach(codeBlock => {
+        const keywords = ['const', 'querySelector', 'forEach'];
 
-  // Loop through each collection item to check for a match
-  collectionItems.forEach(function (item) {
-    const itemTitle = item.querySelector(".title").textContent.toLowerCase();
-    const itemCode = item.querySelector(".code").textContent.toLowerCase();
-    const itemDesc = item.querySelector(".desc").textContent.toLowerCase();
+        const text = codeBlock.textContent;
+        const regex = new RegExp(keywords.join('|'), 'gi');
 
-    // Check if the search term exists in the title, code, or description of the collection item
-    const matchesSearchTerm = itemTitle.includes(searchTerm) || itemCode.includes(searchTerm) || itemDesc.includes(searchTerm);
-    
-    item.style.display = matchesSearchTerm ? "block" : "none";
-  });
+        codeBlock.innerHTML = text.replace(regex, match => {
+            const lowerCaseMatch = match.toLowerCase();
+            if (lowerCaseMatch === 'const') {
+                return `<span class="const">${match}</span>`;
+            } else if (lowerCaseMatch === 'queryselector') {
+                return `<span class="querySelector">${match}</span>`;
+            } else if (lowerCaseMatch === 'foreach') {
+                return `<span class="forEach">${match}</span>`;
+            } else {
+                return match;
+            }
+        });
+    });
+});
+
+  function search() {
+    const searchTerm = document.getElementById('site-search').value.toLowerCase();
+    const collectionItems = document.getElementsByClassName('collection-item');
+
+    for (const item of collectionItems) {
+      const childElements = item.querySelectorAll('*'); // Get all child elements, including nested ones
+      let foundMatch = false;
+
+      for (const child of childElements) {
+        const childContent = child.innerText.toLowerCase();
+
+        if (childContent.includes(searchTerm)) {
+          foundMatch = true;
+          break; // If we find a match, no need to check other elements inside this collection-item
+        }
+      }
+
+      // Show or hide the entire collection-item based on whether any child element contains the search term
+      item.style.display = foundMatch ? 'block' : 'none';
+    }
+  }
+
+  function resetSearch() {
+    const collectionItems = document.getElementsByClassName('collection-item');
+
+    for (const item of collectionItems) {
+      item.style.display = 'block'; // Reset the display of all collection items to 'block'
+    }
+  }
+  
+function searchOnEnter(event) {
+    if (event.key === 'Enter') {
+        search();
+    }
 }
 
-function resetSearch() {
-  // Reset the search input
-  document.getElementById("site-search").value = "";
+// Wrap the function calls inside DOMContentLoaded event handler
+document.addEventListener('DOMContentLoaded', function() {
+    // Add event listener for buttons
+    document.querySelector('button[onclick="search()"]').addEventListener('click', search);
+    document.querySelector('button[onclick="resetSearch()"]').addEventListener('click', resetSearch);
 
-  // Show all the collection items
-  const collectionItems = document.querySelectorAll(".collection-item");
-  collectionItems.forEach(function (item) {
-    item.style.display = "block";
-  });
-}
+    // Add event listener for the Enter key press on the search input
+    document.getElementById('site-search').addEventListener('keydown', searchOnEnter);
+});
+
 function searchOnEnter(event) {
     if (event.key === 'Enter') {
         search();
