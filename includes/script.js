@@ -68,18 +68,29 @@ function search() {
             item.textContent.toLowerCase().includes(term) || isMatchingTitle || isMatchingDesc || isMatchingCode
         );
 
-        item.style.display = isMatching ? originalCollectionVisibility[index] : 'none'; // Show or hide the collection item accordingly
+        // Show or hide the collection item accordingly
+        item.style.display = isMatching ? originalCollectionVisibility[index] : 'none';
 
+        // Show or hide the title, desc, and code accordingly in the collection item
         if (title) {
-            title.style.display = isMatching ? originalTitleVisibility[index] : 'none'; // Show or hide the title accordingly
+            title.style.display = isMatching ? originalTitleVisibility[index] : 'none';
         }
-
         if (desc) {
-            desc.style.display = isMatching ? originalDescVisibility[index] : 'none'; // Show or hide the desc accordingly
+            desc.style.display = isMatching ? originalDescVisibility[index] : 'none';
+        }
+        if (code) {
+            code.style.display = isMatching ? originalCodeVisibility[index] : 'none';
         }
 
-        if (code) {
-            code.style.display = isMatching ? originalCodeVisibility[index] : 'none'; // Show or hide the code accordingly
+        // If there is a match in title, desc, or code, show all title, desc, and code elements in the collection item
+        if (isMatchingTitle || isMatchingDesc || isMatchingCode) {
+            const relatedTitles = item.querySelectorAll('.title');
+            const relatedDescs = item.querySelectorAll('.desc');
+            const relatedCodes = item.querySelectorAll('.code');
+
+            relatedTitles.forEach(titleEl => (titleEl.style.display = originalTitleVisibility[index]));
+            relatedDescs.forEach(descEl => (descEl.style.display = originalDescVisibility[index]));
+            relatedCodes.forEach(codeEl => (codeEl.style.display = originalCodeVisibility[index]));
         }
     });
 }
