@@ -31,3 +31,6 @@ code {
   width: fit-content;
   border-radius: 5px;
 }
+.collection-item.hidden {
+  display: none;
+}
