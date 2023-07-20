@@ -1,111 +1,104 @@
-/* Color function */ 
+/* Color function */
 document.addEventListener('DOMContentLoaded', function() {
-    const codeBlocks = document.querySelectorAll('#code-block');
+  const codeBlocks = document.querySelectorAll('#code-block');
 
-    codeBlocks.forEach(codeBlock => {
-        const keywords = ['const', 'querySelector', 'forEach'];
+  codeBlocks.forEach(codeBlock => {
+    const keywords = ['const', 'querySelector', 'forEach'];
 
-        const text = codeBlock.textContent;
-        const regex = new RegExp(keywords.join('|'), 'gi');
+    const text = codeBlock.textContent;
+    const regex = new RegExp(keywords.join('|'), 'gi');
 
-        codeBlock.innerHTML = text.replace(regex, match => {
-            const lowerCaseMatch = match.toLowerCase();
-            if (lowerCaseMatch === 'const') {
-                return `<span class="const">${match}</span>`;
-            } else if (lowerCaseMatch === 'queryselector') {
-                return `<span class="querySelector">${match}</span>`;
-            } else if (lowerCaseMatch === 'foreach') {
-                return `<span class="forEach">${match}</span>`;
-            } else {
-                return match;
-            }
-        });
+    codeBlock.innerHTML = text.replace(regex, match => {
+      const lowerCaseMatch = match.toLowerCase();
+      if (lowerCaseMatch === 'const') {
+        return `<span class="const">${match}</span>`;
+      } else if (lowerCaseMatch === 'queryselector') {
+        return `<span class="querySelector">${match}</span>`;
+      } else if (lowerCaseMatch === 'foreach') {
+        return `<span class="forEach">${match}</span>`;
+      } else {
+        return match;
+      }
     });
+  });
 });
 
-/* Color function */ 
-document.addEventListener('DOMContentLoaded', function() {
-    const codeBlocks = document.querySelectorAll('#code-block');
+// Function to assign unique classes to collection-items and their child elements
+function assignUniqueClasses() {
+  const collectionItems = document.querySelectorAll('.collection-item');
 
-    codeBlocks.forEach(codeBlock => {
-        const keywords = ['const', 'querySelector', 'forEach'];
+  collectionItems.forEach(function(item, index) {
+    item.classList.add('collection-item-' + index);
 
-        const text = codeBlock.textContent;
-        const regex = new RegExp(keywords.join('|'), 'gi');
+    const title = item.querySelector('.title');
+    if (title) {
+      title.classList.add('title-' + index);
+    }
 
-        codeBlock.innerHTML = text.replace(regex, match => {
-            const lowerCaseMatch = match.toLowerCase();
-            if (lowerCaseMatch === 'const') {
-                return `<span class="const">${match}</span>`;
-            } else if (lowerCaseMatch === 'queryselector') {
-                return `<span class="querySelector">${match}</span>`;
-            } else if (lowerCaseMatch === 'foreach') {
-                return `<span class="forEach">${match}</span>`;
-            } else {
-                return match;
-            }
-        });
-    });
-});
+    const code = item.querySelector('.code');
+    if (code) {
+      code.classList.add('code-' + index);
+    }
 
-  function search() {
-    const searchTerm = document.getElementById('site-search').value.toLowerCase();
-    const collectionItems = document.getElementsByClassName('collection-item');
+    const desc = item.querySelector('.desc');
+    if (desc) {
+      desc.classList.add('desc-' + index);
+    }
+  });
+}
 
-    for (const item of collectionItems) {
-      const childElements = item.querySelectorAll('*'); // Get all child elements, including nested ones
-      let foundMatch = false;
+// Function to handle filtering based on user input
+function filterItems() {
+  const filterInput = document.getElementById('filter-input').value.toLowerCase();
+  const collectionItems = document.querySelectorAll('.collection-item');
 
-      for (const child of childElements) {
-        const childContent = child.innerText.toLowerCase();
+  collectionItems.forEach(function(item) {
+    const itemIndex = item.classList[1].split('-')[1]; // Get the index of the collection-item
 
-        if (childContent.includes(searchTerm)) {
-          foundMatch = true;
-          break; // If we find a match, no need to check other elements inside this collection-item
-        }
+    const title = document.querySelector('.title-' + itemIndex);
+    const code = document.querySelector('.code-' + itemIndex);
+    const desc = document.querySelector('.desc-' + itemIndex);
+
+    const shouldShowItem =
+      item.textContent.toLowerCase().includes(filterInput) ||
+      (title && title.textContent.toLowerCase().includes(filterInput)) ||
+      (code && code.textContent.toLowerCase().includes(filterInput)) ||
+      (desc && desc.textContent.toLowerCase().includes(filterInput));
+
+    if (shouldShowItem) {
+      item.style.display = 'block';
+      if (title) {
+        title.style.display = 'block';
       }
 
-      // Show or hide the entire collection-item based on whether any child element contains the search term
-      item.style.display = foundMatch ? 'block' : 'none';
-    }
-  }
+      if (code) {
+        code.style.display = 'block';
+      }
 
-  function resetSearch() {
-    const collectionItems = document.getElementsByClassName('collection-item');
+      if (desc) {
+        desc.style.display = 'block';
+      }
+    } else {
+      item.style.display = 'none';
 
-    for (const item of collectionItems) {
-      item.style.display = 'block'; // Reset the display of all collection items to 'block'
+      if (title) {
+        title.style.display = 'none';
+      }
+
+      if (code) {
+        code.style.display = 'none';
+      }
+
+      if (desc) {
+        desc.style.display = 'none';
+      }
     }
-  }
-  
-function searchOnEnter(event) {
-    if (event.key === 'Enter') {
-        search();
-    }
+  });
 }
 
-// Wrap the function calls inside DOMContentLoaded event handler
-document.addEventListener('DOMContentLoaded', function() {
-    // Add event listener for buttons
-    document.querySelector('button[onclick="search()"]').addEventListener('click', search);
-    document.querySelector('button[onclick="resetSearch()"]').addEventListener('click', resetSearch);
+// Event listener for the filter input
+document.getElementById('filter-input').addEventListener('input', filterItems);
 
-    // Add event listener for the Enter key press on the search input
-    document.getElementById('site-search').addEventListener('keydown', searchOnEnter);
-});
+// Assign unique classes when the page loads
+assignUniqueClasses();
 
-function searchOnEnter(event) {
-    if (event.key === 'Enter') {
-        search();
-    }
-}
-
-// Wrap the function calls inside DOMContentLoaded event handler
-document.addEventListener('DOMContentLoaded', function() {
-    // Add event listener for buttons
-    document.querySelector('button[onclick="search()"]').addEventListener('click', search);
-    document.querySelector('button[onclick="resetSearch()"]').addEventListener('click', resetSearch);
-
-    // Add event listener for the Enter key press on the search input
-    document.getElementById('site-search').addEventListener('keydown', searchOnEnter);
-});
