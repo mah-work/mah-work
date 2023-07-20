@@ -5,4 +5,6 @@ body{
 #main{
   position: relative;
 }
-
+code {
+    white-space: pre;
+}
