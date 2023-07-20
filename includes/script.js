@@ -1,4 +1,5 @@
 /* Color function */ 
+document.addEventListener('DOMContentLoaded', function() {
     const codeBlock = document.getElementById('code-block');
     const keywords = ['const', 'querySelector', 'forEach'];
 
@@ -17,6 +18,7 @@
             return match;
         }
     });
+});
 
 let originalCollectionVisibility = [];
 let originalTitleVisibility = [];
