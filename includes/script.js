@@ -25,15 +25,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 const collectionItems = document.querySelectorAll('.collection-item');
 
-// Array to store the original visibility of collection items, titles, descs, and codes
-let originalVisibility = [];
+// Arrays to store the original visibility of collection items, titles, descs, and codes
+let originalCollectionVisibility = [];
 let originalTitleVisibility = [];
 let originalDescVisibility = [];
 let originalCodeVisibility = [];
 
 // Function to store the original visibility of collection items, titles, descs, and codes
 function storeOriginalVisibility() {
-    collectionItems.forEach(item => originalVisibility.push(item.style.display));
+    collectionItems.forEach(item => originalCollectionVisibility.push(item.style.display));
 
     const titles = document.querySelectorAll('.collection-item.title');
     titles.forEach(title => originalTitleVisibility.push(title.style.display));
@@ -50,7 +50,7 @@ function search() {
     const searchInput = document.getElementById('site-search');
     const searchTerm = searchInput.value.toLowerCase();
 
-    if (originalVisibility.length === 0) {
+    if (originalCollectionVisibility.length === 0) {
         storeOriginalVisibility(); // Store the original visibility if it hasn't been stored yet
     }
 
@@ -61,20 +61,50 @@ function search() {
 
         // Check if the collection item or its corresponding title, desc, or code contains the search term
         const isMatching = item.textContent.toLowerCase().includes(searchTerm) ||
-                           (title && title.textContent.toLowerCase().includes(searchTerm)) ||
-                           (desc && desc.textContent.toLowerCase().includes(searchTerm)) ||
-                           (code && code.textContent.toLowerCase().includes(searchTerm));
+            (title && title.textContent.toLowerCase().includes(searchTerm)) ||
+            (desc && desc.textContent.toLowerCase().includes(searchTerm)) ||
+            (code && code.textContent.toLowerCase().includes(searchTerm));
 
-        item.style.display = isMatching ? originalVisibility[index] : 'none'; // Show or hide the collection item accordingly
+        item.style.display = isMatching ? originalCollectionVisibility[index] : 'none'; // Show or hide the collection item accordingly
+
+        if (title) {
+            title.style.display = isMatching ? originalTitleVisibility[index] : 'none'; // Show or hide the title accordingly
+        }
+
+        if (desc) {
+            desc.style.display = isMatching ? originalDescVisibility[index] : 'none'; // Show or hide the desc accordingly
+        }
+
+        if (code) {
+            code.style.display = isMatching ? originalCodeVisibility[index] : 'none'; // Show or hide the code accordingly
+        }
     });
 }
 
 function resetSearch() {
     collectionItems.forEach(function(item, index) {
-        item.style.display = originalVisibility[index]; // Restore the original visibility of collection items
+        item.style.display = originalCollectionVisibility[index]; // Restore the original visibility of collection items
+        const title = item.querySelector('.title');
+        const desc = item.querySelector('.desc');
+        const code = item.querySelector('.code');
+
+        if (title) {
+            title.style.display = originalTitleVisibility[index]; // Restore the original visibility of titles
+        }
+
+        if (desc) {
+            desc.style.display = originalDescVisibility[index]; // Restore the original visibility of descs
+        }
+
+        if (code) {
+            code.style.display = originalCodeVisibility[index]; // Restore the original visibility of codes
+        }
     });
 
-    originalVisibility = []; // Reset the originalVisibility array
+    originalCollectionVisibility = []; // Reset the original visibility arrays
+    originalTitleVisibility = [];
+    originalDescVisibility = [];
+    originalCodeVisibility = [];
     document.getElementById('site-search').value = ''; // Clear the search input
 }
 
