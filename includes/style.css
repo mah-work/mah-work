@@ -4,6 +4,9 @@ body{
   margin: 0;
   font-family: 'Nunito', sans-serif;
 }
+#header{
+  padding: 10px 20px;
+}
 #main{
   position: relative;
   padding: 10px 20px;
