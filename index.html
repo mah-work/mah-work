@@ -5,10 +5,31 @@
 </head>
 <body>
     <header id="header">
-        Header | Log In
+        Collections
     </header>
     <section id="main">
-        Main <a href="scripts.html">Scripts</a>
+        <div class="collection-item">
+            <div class="collection-item title">
+                Check factes names for specific word and display none
+            </div>
+            <div class="collection-item code">
+                <code>
+const facetGrup = document.querySelector('.clerk-facet-group-facets');
+const facetNames = document.querySelectorAll('.clerk-facet-name');
+
+facetNames.forEach(function(element) {
+    const lowerCaseContent = element.textContent.toLowerCase();
+        if (lowerCaseContent.includes('non sale items')) {
+        element.style.display = 'none';
+    }
+});
+
+                </code>
+            </div>
+            <div class="collection-item desc">
+                Description
+            </div>
+        </div>
     </section>
     <footer id="footer">
         Footer | Updated at 
