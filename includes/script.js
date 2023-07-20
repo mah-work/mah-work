@@ -23,21 +23,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
 /* Search function */
 
- function search() {
-      const searchInput = document.getElementById('site-search');
-      const searchTerm = searchInput.value.toLowerCase();
+function search() {
+    const searchInput = document.getElementById('site-search');
+    const searchTerm = searchInput.value.toLowerCase();
 
-      const collectionItems = document.querySelectorAll('.collection-item');
+    const collectionItems = document.querySelectorAll('.collection-item');
 
-      collectionItems.forEach(function(item) {
-          const title = item.querySelector('.title').textContent.toLowerCase();
-          const desc = item.querySelector('.desc').textContent.toLowerCase();
-          const code = item.querySelector('.code').textContent.toLowerCase();
+    collectionItems.forEach(function(item) {
+        const title = item.querySelector('.title');
+        const desc = item.querySelector('.desc');
+        const code = item.querySelector('.code');
 
-          if (title.includes(searchTerm) || desc.includes(searchTerm) || code.includes(searchTerm)) {
-              item.style.display = 'block'; // Show the matching item
-          } else {
-              item.style.display = 'none'; // Hide non-matching items
-          }
-      });
-  }
+        if (
+            (title && title.textContent.toLowerCase().includes(searchTerm)) ||
+            (desc && desc.textContent.toLowerCase().includes(searchTerm)) ||
+            (code && code.textContent.toLowerCase().includes(searchTerm))
+        ) {
+            item.style.display = 'block'; // Show the matching item
+        } else {
+            item.style.display = 'none'; // Hide non-matching items
+        }
+    });
+}
+function resetSearch() {
+    const collectionItems = document.querySelectorAll('.collection-item');
+
+    collectionItems.forEach(function(item) {
+        item.style.display = 'block'; // Reset all items to be visible
+    });
+
+    document.getElementById('site-search').value = ''; // Clear the search input
+}
+
+function searchOnEnter(event) {
+    if (event.key === 'Enter') {
+        search();
+    }
+}
