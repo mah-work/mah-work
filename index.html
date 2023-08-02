@@ -63,6 +63,31 @@ if (window.innerWidth <= 1024) {
                 </ul>
             </div>
         </div>
+                <div class="collection-item">
+            <div class="title">
+                Hide Recs for a specific category. Make sure to change "merken" and the id of the slider.
+            </div>
+            <div class="code">
+                <code id="code-block">
+var currentPathname = window.location.pathname;
+    if (currentPathname === "/merken/") {
+    var popularCategoryElement = document.getElementById("category-page-popular");
+        if (popularCategoryElement) {
+        popularCategoryElement.style.display = "none";
+        }
+    }
+                </code>
+            </div>
+            <div class="desc">
+                Tags
+                <ul>
+                    <li>category</li>
+                    <li>hide category</li>
+                    <li>category page</li>
+                    <li>category recs</li>
+                </ul>
+            </div>
+        </div>
     </section>
 </body>
 </html>
